@@ -1,0 +1,22 @@
+{% extends 'men/base.html' %}
+
+{% block content %}
+<ul class="list-articles">
+{% for i in object_list %}
+			<li><div class="article-panel">
+				<p class="first">Категория: {{ i.category }}</p>
+				<p class="last">Дата: {{ i.time_update|date:"d-m-Y H:i:s" }}</p>
+			</div></li>
+			<li><h2>{{i.title}}</h2>
+{% if i.photo %}
+<p><img class="img-article-left thumb" src="{{ i.photo.url }}"></p>
+{% endif %}
+	{% autoescape on %}	
+	{{i.content|linebreaks|truncatewords:50}}
+	{% endautoescape %}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="{{ i.get_absolute_url }}">Читать пост</a></p>
+			</li>
+	{% endfor %}
+</ul>
+{% endblock %}
